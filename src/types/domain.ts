@@ -35,3 +35,4 @@ export type SeatGrid = ReadonlyArray<ReadonlyArray<SeatAvailability>>
 export type TicketId = string
 
 
+
