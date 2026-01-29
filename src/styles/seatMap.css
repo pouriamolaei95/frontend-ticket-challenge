@@ -1,0 +1,61 @@
+.seat-map {
+  width: 100%;
+  overflow: auto;
+}
+
+.seat-map--empty {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+}
+
+.seat-map__grid {
+  margin: 0 auto;
+}
+
+.seat {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 1px solid #ddd;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seat:disabled {
+  cursor: not-allowed;
+}
+
+.seat__inner {
+  width: 80%;
+  height: 80%;
+  border-radius: 2px;
+  transition: background-color 0.15s ease;
+}
+
+.seat--available .seat__inner {
+  background-color: #4caf50;
+}
+
+.seat--available:hover:not(:disabled) .seat__inner {
+  background-color: #45a049;
+}
+
+.seat--reserved .seat__inner {
+  background-color: #f44336;
+  cursor: not-allowed;
+}
+
+.seat--selected .seat__inner {
+  background-color: #2196f3;
+  box-shadow: 0 0 0 2px #1976d2;
+}
+
+.seat--selected:hover:not(:disabled) .seat__inner {
+  background-color: #1976d2;
+}
+
