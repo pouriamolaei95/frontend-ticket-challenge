@@ -1,0 +1,102 @@
+.ticket-confirmation-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.ticket-confirmation-page__container {
+  background-color: white;
+  border-radius: 12px;
+  padding: 3rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.ticket-confirmation-page__icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background-color: #4caf50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: white;
+  font-weight: bold;
+}
+
+.ticket-confirmation-page__title {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.ticket-confirmation-page__message {
+  margin: 0 0 2rem 0;
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.ticket-confirmation-page__ticket-id-container {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  border: 2px dashed #ddd;
+}
+
+.ticket-confirmation-page__ticket-id-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ticket-confirmation-page__ticket-id {
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2196f3;
+  word-break: break-all;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.ticket-confirmation-page__note {
+  margin: 1.5rem 0 0 0;
+  color: #999;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .ticket-confirmation-page {
+    padding: 1rem;
+  }
+
+  .ticket-confirmation-page__container {
+    padding: 2rem 1.5rem;
+  }
+
+  .ticket-confirmation-page__title {
+    font-size: 1.5rem;
+  }
+
+  .ticket-confirmation-page__ticket-id {
+    font-size: 1.2rem;
+  }
+}
+
