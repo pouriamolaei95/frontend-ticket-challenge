@@ -1,9 +1,5 @@
-import type { TicketId } from '../types'
+import { useParams, Navigate } from 'react-router-dom'
 import '../styles/ticketConfirmationPage.css'
-
-type TicketConfirmationPageProps = {
-  ticketId: TicketId
-}
 
 /**
  * Ticket confirmation page
@@ -11,7 +7,14 @@ type TicketConfirmationPageProps = {
  * Displays the ticket ID to the user after a successful purchase.
  * This is the final step in the ticket booking flow.
  */
-export function TicketConfirmationPage({ ticketId }: TicketConfirmationPageProps) {
+export function TicketConfirmationPage() {
+  const { ticketId } = useParams<{ ticketId: string }>()
+
+  if (!ticketId) {
+    return <Navigate to="/" replace />
+  }
+
+  const decodedTicketId = decodeURIComponent(ticketId)
   return (
     <div className="ticket-confirmation-page">
       <div className="ticket-confirmation-page__container">
@@ -22,8 +25,8 @@ export function TicketConfirmationPage({ ticketId }: TicketConfirmationPageProps
         </p>
         <div className="ticket-confirmation-page__ticket-id-container">
           <label className="ticket-confirmation-page__ticket-id-label">Ticket ID</label>
-          <div className="ticket-confirmation-page__ticket-id" aria-label={`Ticket ID: ${ticketId}`}>
-            {ticketId}
+          <div className="ticket-confirmation-page__ticket-id" aria-label={`Ticket ID: ${decodedTicketId}`}>
+            {decodedTicketId}
           </div>
         </div>
         <p className="ticket-confirmation-page__note">

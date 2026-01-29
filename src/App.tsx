@@ -1,15 +1,26 @@
-import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HomePage } from './pages/HomePage'
+import { TicketConfirmationPage } from './pages/TicketConfirmationPage'
 
 /**
  * Main application component
- * This will be expanded to include routing and main application logic
+ *
+ * Sets up routing for the ticket booking application:
+ * - / : Home page with seat selection
+ * - /confirmation/:ticketId : Ticket confirmation page
  */
 function App() {
   return (
-    <div className="app">
-      <h1>Volleyball Federation - Ticket Booking</h1>
-      <p>Application setup in progress...</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/confirmation/:ticketId"
+          element={<TicketConfirmationPage />}
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
