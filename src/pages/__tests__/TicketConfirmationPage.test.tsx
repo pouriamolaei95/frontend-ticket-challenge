@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import { TicketConfirmationPage } from '../TicketConfirmationPage'
 
@@ -49,6 +50,75 @@ describe('TicketConfirmationPage', () => {
     renderWithRouter(encoded)
     
     expect(screen.getByText(ticketId)).toBeInTheDocument()
+  })
+
+  describe('copy functionality', () => {
+    beforeEach(() => {
+      Object.assign(navigator, {
+        clipboard: {
+          writeText: vi.fn(() => Promise.resolve()),
+        },
+      })
+    })
+
+    afterEach(() => {
+      vi.restoreAllMocks()
+    })
+
+    it('has a copy button', () => {
+      const ticketId = 'test-ticket-123'
+      renderWithRouter(ticketId)
+      
+      const copyButton = screen.getByRole('button', { name: /copy ticket id/i })
+      expect(copyButton).toBeInTheDocument()
+      expect(copyButton).toHaveTextContent('Copy')
+    })
+
+    it('copies ticket ID to clipboard when copy button is clicked', async () => {
+      const user = userEvent.setup()
+      const ticketId = 'test-ticket-456'
+      renderWithRouter(ticketId)
+      
+      const copyButton = screen.getByRole('button', { name: /copy ticket id/i })
+      await user.click(copyButton)
+      
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith(ticketId)
+    })
+
+    it('shows "Copied!" feedback after copying', async () => {
+      const user = userEvent.setup()
+      const ticketId = 'test-ticket-789'
+      renderWithRouter(ticketId)
+      
+      const copyButton = screen.getByRole('button', { name: /copy ticket id/i })
+      await user.click(copyButton)
+      
+      await waitFor(() => {
+        expect(copyButton).toHaveTextContent('✓ Copied!')
+      })
+    })
+
+    it('reverts to "Copy" after 2 seconds', async () => {
+      vi.useFakeTimers()
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+      const ticketId = 'test-ticket-abc'
+      renderWithRouter(ticketId)
+      
+      const copyButton = screen.getByRole('button', { name: /copy ticket id/i })
+      await user.click(copyButton)
+      
+      await waitFor(() => {
+        expect(copyButton).toHaveTextContent('✓ Copied!')
+      })
+      
+      vi.advanceTimersByTime(2000)
+      
+      await waitFor(() => {
+        expect(copyButton).toHaveTextContent('Copy')
+      })
+      
+      vi.useRealTimers()
+    })
   })
 })
 
